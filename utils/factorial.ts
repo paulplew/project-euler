@@ -1,22 +1,24 @@
-import { NumberMap } from "./interfaces";
-
-// used to compute the factorial of a given number num
+/**
+ * Computes the factorial of the given number
+ * 
+ * @param  {number} num the number to be factorialized
+ * @returns {number} the factorial of the given number
+ */
 export const factorial = (num: number): number => {
-  // empty object for DP 
-  const _table: NumberMap = {};
-  
-  const _f = (n: number): number => {
-    if (_table[n]) {
-      return _table[n];
-    } else if (n === 0) {
-      _table[n] = 1;
+  /**
+   * A helper for computing the factorial of a number
+   * 
+   * @param  {number} n the number to be factorialized
+   * @returns {number} the factorial of the given number
+   */
+  const _factorialHelper = (n: number): number => {
+    if (n === 0) {
       return 1;
     } else {
-      _table[n] = n * _f(n - 1);
-      return _table[n];
+      return n * _factorialHelper(n - 1);
     }
   }
 
-  return _f(num)
+  return _factorialHelper(num)
 }
 

@@ -8,10 +8,10 @@
  * 
 */
 const sundaram_sieve = 
-(k: number, outerLoop: (a: number) => boolean): number[] => {
+(k: number, loopEscape: (a: number) => boolean): number[] => {
   const flags: boolean[] = new Array(k + 1).fill(true);
 
-  for (let i = 1; outerLoop(i); i += 1) {
+  for (let i = 1; loopEscape(i); i += 1) {
     let j: number = i;
     while (i + j + (2 * i * j) <= k) {
       flags[i + j + (2 * i * j)] = false;
@@ -52,4 +52,25 @@ export const largestPrimeBelow = (n: number): number => {
   const primes: number[] = sundaram_sieve(k, (i) => i < Math.sqrt(k));
 
   return primes[primes.length - 1];
+}
+
+/**
+ * Checks if the given number is prime.
+ * 
+ * @param  {number} n the number that will be checked
+ * @returns boolean true if the given number is prime, false otherwise.
+ */
+export const isPrime = (n: number): boolean => {
+  if (n <= 3) {
+    return n > 1;
+  } else if ((n % 2 === 0) || (n % 3 === 0)) {
+    return false;
+  }
+  
+  let current = 5;
+  while (Math.pow(current, 2) <= n) {
+    if (n % current === 0 || n % (current + 2) === 0) return false;
+    current += 6;
+  }
+  return true;
 }
