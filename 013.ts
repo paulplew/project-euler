@@ -99,18 +99,9 @@ const input = `37107287533902102798797998220837590246510135740250
 20849603980134001723930671666823555245252804609722
 53503534226472524250874054075591789781264330331690`;
 
-const inputAsArray: number[][] =
-  input.split('\n')
-    .map((line) => line.split('')
-      .map((a) => parseInt(a)));
+const bigInts: bigint[] = input.split('\n').map((n) => BigInt(n));
+const answer = bigInts.reduce((previous, current) => previous + current);
 
-
-const sum: number[] = [];
-inputAsArray[0].forEach(
-  (element, index) => inputAsArray.reduce(
-    (previous, current, _) => previous + current[index], 0));
-console.log(digits);
-
-// console.log(`Answer: ${answer}`);
+console.log(`Answer: ${answer}`);
 
 
