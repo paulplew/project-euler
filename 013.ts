@@ -101,7 +101,4 @@ const input = `37107287533902102798797998220837590246510135740250
 
 const bigInts: bigint[] = input.split('\n').map((n) => BigInt(n));
 const answer = bigInts.reduce((previous, current) => previous + current);
-
 console.log(`Answer: ${answer}`);
-
-
