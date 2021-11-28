@@ -7,28 +7,28 @@
  * @returns {number[]} a list of the primes produced
  * 
 */
-const sundaram_sieve = 
-(k: number, loopEscape: (a: number) => boolean): number[] => {
-  const flags: boolean[] = new Array(k + 1).fill(true);
+const sundaram_sieve =
+  (k: number, loopEscape: (a: number) => boolean): number[] => {
+    const flags: boolean[] = new Array(k + 1).fill(true);
 
-  for (let i = 1; loopEscape(i); i += 1) {
-    let j: number = i;
-    while (i + j + (2 * i * j) <= k) {
-      flags[i + j + (2 * i * j)] = false;
-      j += 1;
+    for (let i = 1; loopEscape(i); i += 1) {
+      let j: number = i;
+      while (i + j + (2 * i * j) <= k) {
+        flags[i + j + (2 * i * j)] = false;
+        j += 1;
+      }
     }
-  }
 
-  const primes: number[] = [2];
+    const primes: number[] = [2];
 
-  for (let i = 0; i < flags.length; i += 1) {
-    if (flags[i]) {
-      primes.push(2 * i + 1);
+    for (let i = 0; i < flags.length; i += 1) {
+      if (flags[i]) {
+        primes.push(2 * i + 1);
+      }
     }
-  }
 
-  return primes;
-}
+    return primes;
+  }
 
 /**
  * Generates the Nth prime number.
@@ -41,17 +41,18 @@ export const nthPrime = (n: number): number => {
   const primes: number[] = sundaram_sieve(k, (i) => i <= k);
   return primes[n];
 }
+
 /**
  * Produces the largest prime below a given number.
  * 
  * @param  {number} n the maximum number
  * @returns number the largest prime number below the given number
  */
-export const largestPrimeBelow = (n: number): number => {
+export const primesBelow = (n: number): number[] => {
   const k: number = Math.floor((n - 1) / 2);
   const primes: number[] = sundaram_sieve(k, (i) => i < Math.sqrt(k));
 
-  return primes[primes.length - 1];
+  return primes;
 }
 
 /**
@@ -66,7 +67,7 @@ export const isPrime = (n: number): boolean => {
   } else if ((n % 2 === 0) || (n % 3 === 0)) {
     return false;
   }
-  
+
   let current = 5;
   while (Math.pow(current, 2) <= n) {
     if (n % current === 0 || n % (current + 2) === 0) return false;
